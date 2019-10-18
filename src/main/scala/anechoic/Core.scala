@@ -20,7 +20,7 @@ class Core extends Actor {
       case Some(networkActorRef) => networkActorRef ! "PROVISION-PORTAL"
       case None => log.error("portal provisioning tried without a registered network")
     }
-    case Message("PROVISIONED-PORTAL", portal) => // TODO
+    case Message("PROVISIONED-PORTAL", portal) => log.info("prov portal TBI") // TODO
     case _ => log.info("received unknown message")
   }
 

@@ -1,6 +1,6 @@
 package anechoic
 
-import akka.actor.{ Actor, ActorRef }
+import akka.actor.{ Actor, ActorRef, Props}
 import akka.event.Logging
 
 class Network extends Actor {
@@ -16,7 +16,7 @@ class Network extends Actor {
       case Some(coreActorRef) => coreActorRef ! "EXTERNAL-MESSAGE"  // TODO : implement message case class
       case None => log.error("external message received without a registered core")
     }
-    case "PROVISION-PORTAL" => sender() ! Message("PROVISIONED-PORTAL", ActorRef[LocalPortal])
+    case "PROVISION-PORTAL" => sender() ! Message("PROVISIONED-PORTAL", Some(Props[LocalPortal]))
     case _ => log.info("received unknown message")
   }
 
