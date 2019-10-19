@@ -5,6 +5,8 @@ import language.postfixOps
 
 object Main extends App {
   val system = ActorSystem("mySystem")
-  val inst = system.actorOf(Props[Core], name="Core")
-  inst ! "test"
+  val core = system.actorOf(Props[Core], name="Core")
+  val network = system.actorOf(Props[Network], name="network")
+  core ! Message("STATE=>INITIALIZATION", None)
+  network ! Message("STATE=>INITIALIZATION", None)
 }

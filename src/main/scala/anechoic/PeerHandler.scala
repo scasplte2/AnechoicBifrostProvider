@@ -16,11 +16,13 @@ class PeerHandler extends Actor {
       this.portal.get ! Message("BIND-PARENT", None)  // tell portal i'm its daddy
       this.peer match {
         case Some(peer) => this.portal.get ! Message("BIND-COUNTERPART", Some(portal))
+        case _ => _
       }
     case Message("REGISTER-PEER", peer) =>
       this.peer = Some(peer.asInstanceOf[ActorRef])
       this.portal match {
         case Some(portal) => portal ! Message("BIND-COUNTERPART", Some(portal))  // notify portal of peer
+        case _ => _
       }
     case _ => log.info("received unknown message")
   }
